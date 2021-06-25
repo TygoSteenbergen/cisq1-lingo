@@ -13,6 +13,7 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private GameStatus gameStatus;
     @OneToMany(mappedBy = "game", cascade = CascadeType.MERGE)
     private List<Round> rounds = new ArrayList<>();
 
@@ -22,6 +23,7 @@ public class Game {
     public Round makeRound(String word){
         Round round = new Round(word);
         rounds.add(round);
+        gameStatus = GameStatus.RoundNotWon;
         return round;
     }
 
@@ -35,7 +37,7 @@ public class Game {
 
     public Hint guessWord(String word){
         Round round = getLastRound();
-        if (round.getGuesses() <= 0 || round.getWon()) {
+        if (round.getGuesses() <= 0 || gameStatus.equals(GameStatus.RoundWon)) {
             throw new RoundIsOverException();
         } else if(word.length() != round.getWord().length()){
             throw new InvalidLengthException();
@@ -44,7 +46,7 @@ public class Game {
             List<Mark> marks = Feedback.markAttempt(word, round.getWord());
             Hint hint = round.getFeedback().giveHint(round.getWord(), marks);
             if (word.equals(String.join("", hint.getHintStrings()))) {
-                round.setWon(true);
+                gameStatus = GameStatus.RoundWon;
             }
             round.setGuesses(round.getGuesses() -1);
             return hint;

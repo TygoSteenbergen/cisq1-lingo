@@ -28,12 +28,6 @@ class RoundDTOTest {
     }
 
     @Test
-    void setIsWon() {
-        roundDTO.setIsWon(true);
-        assertTrue(roundDTO.getIsWon());
-    }
-
-    @Test
     void setFeedback() {
         roundDTO.setFeedback(new FeedbackDTO());
         assertEquals(new FeedbackDTO().toString(), roundDTO.getFeedback().toString());

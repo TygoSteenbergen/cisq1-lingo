@@ -14,7 +14,6 @@ import nl.hu.cisq1.lingo.trainer.domain.Round;
 public class RoundDTO {
     private int guesses = 5;
     private String word;
-    private Boolean isWon = false;
     private FeedbackDTO feedback;
     @JsonCreator
     public RoundDTO(){
@@ -24,7 +23,6 @@ public class RoundDTO {
     public RoundDTO(Round round) {
         this.guesses = round.getGuesses();
         this.word = round.getWord();
-        this.isWon = round.getWon();
         this.feedback = new FeedbackDTO(round.getFeedback());
     }
 }

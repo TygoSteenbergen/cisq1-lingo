@@ -16,7 +16,6 @@ public class Round {
     private Game game;
     private int guesses = 5;
     private String word;
-    private Boolean isWon = false;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "feedback_id", referencedColumnName = "id")
     private Feedback feedback;
@@ -38,15 +37,7 @@ public class Round {
                 "id=" + id +
                 ", guesses=" + guesses +
                 ", word='" + word + '\'' +
-                ", isWon=" + isWon +
                 '}';
-    }
-
-    public Boolean getWon() {
-        return isWon;
-    }
-    public void setWon(Boolean isWon){
-        this.isWon = isWon;
     }
     public void setGuesses(int guesses) {
         this.guesses = guesses;

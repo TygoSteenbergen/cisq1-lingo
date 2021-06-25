@@ -50,12 +50,10 @@ class GameTest {
         game.getLastRound().setGuesses(0);
         assertThrows(RoundIsOverException.class, () -> game.guessWord("woord"));
         game.getLastRound().setGuesses(5);
-        game.getLastRound().setWon(true);
+        game.guessWord("woord");
         assertThrows(RoundIsOverException.class, () -> game.guessWord("woord"));
         game.getLastRound().setGuesses(0);
         assertThrows(RoundIsOverException.class, () -> game.guessWord("woord"));
-        game.getLastRound().setGuesses(5);
-        game.getLastRound().setWon(false);
     }
 
     @Test
@@ -72,6 +70,6 @@ class GameTest {
         Game game = new Game();
         game.makeRound("woord");
         System.out.println(String.join("", game.guessWord("appel").getHintStrings()));
-        assertFalse(game.getLastRound().getWon());
+        assertEquals(game.getGameStatus(), GameStatus.RoundNotWon);
     }
 }
