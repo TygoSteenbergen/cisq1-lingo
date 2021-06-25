@@ -30,6 +30,12 @@ public class Round {
         List<Mark> marks = Feedback.markAttempt(str.repeat(word.length()), word);
         this.feedback = new Feedback(str.repeat(word.length()), marks);
     }
+    public List<Mark> makeMarks(String attempt){
+        return Feedback.markAttempt(attempt, word);
+    }
+    public Hint makeHint(List<Mark> marks){
+        return feedback.giveHint(word, marks);
+    }
 
     @Override
     public String toString() {

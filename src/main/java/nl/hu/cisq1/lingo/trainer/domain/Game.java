@@ -43,8 +43,8 @@ public class Game {
             throw new InvalidLengthException();
         }
         else {
-            List<Mark> marks = Feedback.markAttempt(word, round.getWord());
-            Hint hint = round.getFeedback().giveHint(round.getWord(), marks);
+            List<Mark> marks = round.makeMarks(word);
+            Hint hint = round.makeHint(marks);
             if (word.equals(String.join("", hint.getHintStrings()))) {
                 gameStatus = GameStatus.RoundWon;
             }
