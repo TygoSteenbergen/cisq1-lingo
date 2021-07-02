@@ -30,6 +30,7 @@ public class TrainerService {
 
     public GameDTO startGame (){
         Game game = new Game();
+        //gives wordlenghtnotsupported error even though words of length 5 are in the database.
         game.makeRound(wordService.provideRandomWord(5));
         this.game = game;
         return new GameDTO(game);
