@@ -1,6 +1,7 @@
 package nl.hu.cisq1.lingo.trainer.application;
 
 import nl.hu.cisq1.lingo.CiTestConfiguration;
+import nl.hu.cisq1.lingo.trainer.application.exception.InvalidGuessException;
 import nl.hu.cisq1.lingo.trainer.domain.GameStatus;
 import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidLengthException;
 import nl.hu.cisq1.lingo.trainer.domain.exception.RoundIsOverException;
@@ -47,9 +48,9 @@ class TrainerServiceIntegrationTest {
         trainerService.startGame();
         trainerService.guess(trainerService.getGame().getLastRound().getWord());
         assertEquals(trainerService.getGame().getGameStatus(), GameStatus.RoundWon);
-        assertThrows(RoundIsOverException.class, () -> trainerService.guess("woord"));
+        assertThrows(InvalidGuessException.class, () -> trainerService.guess("woord"));
         trainerService.startGame();
-        assertThrows(InvalidLengthException.class, () -> trainerService.guess("thisistoolong"));
+        assertThrows(InvalidGuessException.class, () -> trainerService.guess("thisistoolong"));
     }
 
     @Test

@@ -1,12 +1,15 @@
 package nl.hu.cisq1.lingo.trainer.presentation;
 
 import nl.hu.cisq1.lingo.trainer.application.TrainerService;
+import nl.hu.cisq1.lingo.trainer.application.exception.InvalidGuessException;
 import nl.hu.cisq1.lingo.trainer.domain.exception.RoundIsOverException;
 import nl.hu.cisq1.lingo.trainer.presentation.DTO.AttemptDTO;
 import nl.hu.cisq1.lingo.trainer.presentation.DTO.GameDTO;
 import nl.hu.cisq1.lingo.trainer.presentation.DTO.HintDTO;
 import nl.hu.cisq1.lingo.trainer.presentation.DTO.RoundDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("trainer")
@@ -30,8 +33,8 @@ public class TrainerController {
             HintDTO hintDTO = trainerService.guess(attemptDTO.getAttempt());
             trainerService.saveGame();
             return hintDTO;
-        } catch (RoundIsOverException e) {
-            throw e;
+        } catch (InvalidGuessException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
 

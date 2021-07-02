@@ -48,7 +48,7 @@ class GameTest {
         Game game = new Game();
         game.makeRound("woord");
         for (int i = 0; i < 5; i++) {
-
+            game.guessWord("wrong");
         }
         assertThrows(RoundIsOverException.class, () -> game.guessWord("woord"));
         Game game2 = new Game();
