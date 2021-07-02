@@ -51,6 +51,10 @@ class TrainerControllerIntegrationTest {
                 .content("{\"attempt\":\"woord\"}")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200));
+        mockMvc.perform(patch("/trainer/guess")
+                .content("{\"attempt\":\"woordd\"}")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andExpect(status().is(400));
 
         verify(mockRepository, times(2)).save(any(Game.class));
     }
