@@ -87,18 +87,4 @@ public class Feedback {
         this.marks = newMarks;
         return new Hint(hintString, newMarks);
     }
-
-//    public void setAttempt(String attempt) {
-//        this.attempt = attempt;
-//    }
-//    public void setMarks(List<Mark> marks) {
-//        this.marks = marks;
-//    }
-//    public void setRound(Round round) {
-//        this.round = round;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
 }

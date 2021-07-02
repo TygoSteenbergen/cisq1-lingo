@@ -12,6 +12,7 @@ public class Round {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    //Game is hier alleen om spring te laten werken.
     @ManyToOne
     private Game game;
     private int guesses = 5;
@@ -45,7 +46,7 @@ public class Round {
                 ", word='" + word + '\'' +
                 '}';
     }
-    public void setGuesses(int guesses) {
-        this.guesses = guesses;
+    public void subtractGuesses(){
+        guesses --;
     }
 }

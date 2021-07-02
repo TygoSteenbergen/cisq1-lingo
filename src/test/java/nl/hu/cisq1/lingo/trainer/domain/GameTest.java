@@ -47,13 +47,14 @@ class GameTest {
     void throwsRoundIsOverException() {
         Game game = new Game();
         game.makeRound("woord");
-        game.getLastRound().setGuesses(0);
+        for (int i = 0; i < 5; i++) {
+
+        }
         assertThrows(RoundIsOverException.class, () -> game.guessWord("woord"));
-        game.getLastRound().setGuesses(5);
-        game.guessWord("woord");
-        assertThrows(RoundIsOverException.class, () -> game.guessWord("woord"));
-        game.getLastRound().setGuesses(0);
-        assertThrows(RoundIsOverException.class, () -> game.guessWord("woord"));
+        Game game2 = new Game();
+        game2.makeRound("woord");
+        game2.guessWord("woord");
+        assertThrows(RoundIsOverException.class, () -> game2.guessWord("woord"));
     }
 
     @Test

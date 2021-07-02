@@ -55,47 +55,39 @@ class FeedbackTest {
 
     }
 
+    public static Stream<Arguments> provideMarks() {
+        return Stream.of(
+                Arguments.of(List.of(Mark.CORRECT), List.of(Mark.CORRECT), List.of(Mark.ABSENT)),
+                Arguments.of(List.of(Mark.CORRECT), List.of(Mark.CORRECT), List.of(Mark.CORRECT)),
+                Arguments.of(List.of(Mark.CORRECT), List.of(Mark.CORRECT), List.of(Mark.INVALID)),
+                Arguments.of(List.of(Mark.CORRECT), List.of(Mark.CORRECT), List.of(Mark.PRESENT)),
+
+                Arguments.of(List.of(Mark.INVALID), List.of(Mark.INVALID), List.of(Mark.INVALID)),
+                Arguments.of(List.of(Mark.ABSENT),List.of(Mark.INVALID), List.of(Mark.ABSENT)),
+                Arguments.of(List.of(Mark.PRESENT),List.of(Mark.INVALID), List.of(Mark.PRESENT)),
+                Arguments.of(List.of(Mark.CORRECT),List.of(Mark.INVALID), List.of(Mark.CORRECT)),
+
+                Arguments.of(List.of(Mark.INVALID), List.of(Mark.PRESENT), List.of(Mark.INVALID)),
+                Arguments.of(List.of(Mark.ABSENT),List.of(Mark.PRESENT), List.of(Mark.ABSENT)),
+                Arguments.of(List.of(Mark.PRESENT),List.of(Mark.PRESENT), List.of(Mark.PRESENT)),
+                Arguments.of(List.of(Mark.CORRECT),List.of(Mark.PRESENT), List.of(Mark.CORRECT)),
+
+                Arguments.of(List.of(Mark.INVALID), List.of(Mark.ABSENT), List.of(Mark.INVALID)),
+                Arguments.of(List.of(Mark.ABSENT),List.of(Mark.ABSENT), List.of(Mark.ABSENT)),
+                Arguments.of(List.of(Mark.PRESENT),List.of(Mark.ABSENT), List.of(Mark.PRESENT)),
+                Arguments.of(List.of(Mark.CORRECT),List.of(Mark.ABSENT), List.of(Mark.CORRECT))
+
+        );
+    }
+
 
     //Add marks tests
-    @Test
+    @ParameterizedTest
+    @MethodSource("provideMarks")
     @DisplayName("Marks have been added if the correct marks from the old marks were added to te new marks.")
-    void addMarks() {
+    void addMarks(List<Mark> output, List<Mark> oldMarks, List<Mark> newMarks) {
         Feedback feedback = new Feedback();
-        assertEquals(List.of(Mark.CORRECT),
-                feedback.addMarks(List.of(Mark.CORRECT), List.of(Mark.ABSENT)));
-        assertEquals(List.of(Mark.CORRECT),
-                feedback.addMarks(List.of(Mark.CORRECT), List.of(Mark.CORRECT)));
-        assertEquals(List.of(Mark.CORRECT),
-                feedback.addMarks(List.of(Mark.CORRECT), List.of(Mark.INVALID)));
-        assertEquals(List.of(Mark.CORRECT),
-                feedback.addMarks(List.of(Mark.CORRECT), List.of(Mark.PRESENT)));
-
-        assertEquals(List.of(Mark.INVALID),
-                feedback.addMarks(List.of(Mark.INVALID), List.of(Mark.INVALID)));
-        assertEquals(List.of(Mark.ABSENT),
-                feedback.addMarks(List.of(Mark.INVALID), List.of(Mark.ABSENT)));
-        assertEquals(List.of(Mark.PRESENT),
-                feedback.addMarks(List.of(Mark.INVALID), List.of(Mark.PRESENT)));
-        assertEquals(List.of(Mark.CORRECT),
-                feedback.addMarks(List.of(Mark.INVALID), List.of(Mark.CORRECT)));
-
-        assertEquals(List.of(Mark.INVALID),
-                feedback.addMarks(List.of(Mark.PRESENT), List.of(Mark.INVALID)));
-        assertEquals(List.of(Mark.ABSENT),
-                feedback.addMarks(List.of(Mark.PRESENT), List.of(Mark.ABSENT)));
-        assertEquals(List.of(Mark.PRESENT),
-                feedback.addMarks(List.of(Mark.PRESENT), List.of(Mark.PRESENT)));
-        assertEquals(List.of(Mark.CORRECT),
-                feedback.addMarks(List.of(Mark.PRESENT), List.of(Mark.CORRECT)));
-
-        assertEquals(List.of(Mark.INVALID),
-                feedback.addMarks(List.of(Mark.ABSENT), List.of(Mark.INVALID)));
-        assertEquals(List.of(Mark.ABSENT),
-                feedback.addMarks(List.of(Mark.ABSENT), List.of(Mark.ABSENT)));
-        assertEquals(List.of(Mark.PRESENT),
-                feedback.addMarks(List.of(Mark.ABSENT), List.of(Mark.PRESENT)));
-        assertEquals(List.of(Mark.CORRECT),
-                feedback.addMarks(List.of(Mark.ABSENT), List.of(Mark.CORRECT)));
+        assertEquals(output, feedback.addMarks(oldMarks,newMarks));
     }
 
     //giveHint tests

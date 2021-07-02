@@ -1,5 +1,8 @@
 package nl.hu.cisq1.lingo.trainer.application;
 
+import nl.hu.cisq1.lingo.trainer.application.exception.InvalidGuessException;
+import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidLengthException;
+import nl.hu.cisq1.lingo.trainer.domain.exception.RoundIsOverException;
 import nl.hu.cisq1.lingo.trainer.presentation.DTO.GameDTO;
 import nl.hu.cisq1.lingo.trainer.presentation.DTO.HintDTO;
 import nl.hu.cisq1.lingo.trainer.presentation.DTO.RoundDTO;
@@ -36,7 +39,13 @@ public class TrainerService {
         return new RoundDTO(game.makeRound(wordService.provideRandomWord(5 + game.getRounds().size())));
     }
     public HintDTO guess(String guess){
-        return new HintDTO(this.game.guessWord(guess));
+        try {
+            return new HintDTO(this.game.guessWord(guess));
+        }catch (RoundIsOverException e){
+            throw new InvalidGuessException("This round is already over make a new round before proceeding.", e);
+        }catch(InvalidLengthException e){
+            throw new InvalidGuessException(e.getMessage(), e);
+        }
     }
     public void saveGame(){
         gameRepository.save(this.game);

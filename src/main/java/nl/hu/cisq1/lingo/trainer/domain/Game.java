@@ -40,7 +40,7 @@ public class Game {
         if (round.getGuesses() <= 0 || gameStatus.equals(GameStatus.RoundWon)) {
             throw new RoundIsOverException();
         } else if(word.length() != round.getWord().length()){
-            throw new InvalidLengthException();
+            throw new InvalidLengthException("Invalid length please make sure the attempt contains "+ round.getWord().length() + " characters.");
         }
         else {
             List<Mark> marks = round.makeMarks(word);
@@ -48,7 +48,7 @@ public class Game {
             if (word.equals(String.join("", hint.getHintStrings()))) {
                 gameStatus = GameStatus.RoundWon;
             }
-            round.setGuesses(round.getGuesses() -1);
+            round.subtractGuesses();
             return hint;
         }
     }
