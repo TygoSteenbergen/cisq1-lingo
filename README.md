@@ -5,7 +5,7 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=TygoSteenbergen_cisq1-lingo&metric=security_rating)](https://sonarcloud.io/dashboard?id=TygoSteenbergen_cisq1-lingo)
 
 OWASP:
-A1:2017 Injection:
+A1:2017 Injection:  
 Injection kan plaats vinden wanneer een aanvaller data kan sturen naar de interperter van een systeem
 Het project heeft één injection weakness. In de guess methode wordt een attemptDTO geserialiseerd met daarin een string value. Deze string wordt uiteindelijk in de database gezet en kan dus gebruikt worden om ongeautoriseerde invloed te hebben op de database.
 A9:2017 Using Components with Known Vulnerabilities:
